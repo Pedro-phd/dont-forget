@@ -1,0 +1,8 @@
+query MyQuery($email: String) {
+            users(where: { email: { _eq: $email } }) {
+              email
+              name
+              password
+              todos
+            }
+          }

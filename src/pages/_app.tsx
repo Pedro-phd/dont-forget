@@ -1,11 +1,16 @@
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 
+import { ApolloProvider } from '@apollo/client'
+import { client } from '../utils/client'
+
+import { Provider } from 'next-auth/client'
+
 import GlobalStyles from 'styles/global'
 
 function App({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <ApolloProvider client={client}>
       <Head>
         <title>React Avançado - Boilerplate</title>
         <link rel="shortcut icon" href="/img/icon-512.png" />
@@ -17,8 +22,10 @@ function App({ Component, pageProps }: AppProps) {
         />
       </Head>
       <GlobalStyles />
-      <Component {...pageProps} />
-    </>
+      <Provider session={pageProps.session}>
+        <Component {...pageProps} />
+      </Provider>
+    </ApolloProvider>
   )
 }
 
